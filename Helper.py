@@ -15,7 +15,7 @@ def summary_poster(artist_df, color_dict):
         specs=[[{"type": "pie"}, {"type": "bar"}],
             [ {"type":"scatter", "colspan": 2}, None]],
             subplot_titles=('S, T, E, M Clusters', 
-                            'Yearly changes', 
+                            'S, T, E, M Bar Graph', 
                             'Test Graph'),
             vertical_spacing=0.1, horizontal_spacing= 0.09)
     #PIE
