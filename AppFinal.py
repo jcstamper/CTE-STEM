@@ -16,7 +16,7 @@ title_image = Image.open("./plots/AppTitle.jpg")
 st.image(title_image)
 
 st.markdown("DEMO for the CTE STEM Index'***")
-st.markdown("This app is meant as a demo explore the dataset created by the CTE STEM Index team"")
+st.markdown("This app is meant as a demo explore the dataset created by the CTE STEM Index team.")
 #---------------------------------------------------------------#
 # SELECT ARTIST AND SETUP DATA
 #---------------------------------------------------------------#
