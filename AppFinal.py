@@ -12,10 +12,10 @@ st.set_page_config(page_title="CTE STEM Index",
 #--------------------------------- ---------------------------------  ---------------------------------
 #--------------------------------- SETTING UP THE APP
 #--------------------------------- ---------------------------------  ---------------------------------
-title_image = Image.open("./plots/AppTitle.jpg")
+title_image = Image.open("./plots/AppTitle.png")
 st.image(title_image)
 
-st.markdown("DEMO for the CTE STEM Index'***")
+st.markdown("DEMO for the CTE STEM Index")
 st.markdown("This app is meant as a demo explore the dataset created by the CTE STEM Index team.")
 #---------------------------------------------------------------#
 # SELECT ARTIST AND SETUP DATA
