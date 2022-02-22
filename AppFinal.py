@@ -6,8 +6,7 @@ from Helper import load_data, summary_poster
 stats_df = load_data("./data/df_wclusters.csv")
 color_map_df = load_data("./data/color_map_df.csv")
 
-st.set_page_config(page_title="Music Through the Ages", 
-                   page_icon=":notes:", 
+st.set_page_config(page_title="CTE STEM Index", 
                    layout='wide')
 
 #--------------------------------- ---------------------------------  ---------------------------------
@@ -16,20 +15,15 @@ st.set_page_config(page_title="Music Through the Ages",
 title_image = Image.open("./plots/AppTitle.jpg")
 st.image(title_image)
 
-st.markdown("A Data Geek's take on the question ***'How have music tastes changed through the years?'***")
-st.markdown("This app is meant as a playground to explore the dataset used in the" +
-            " [Music through the Ages](https://github.com/tanul-mathur/music-through-the-ages)\
-                project. It contains 50 years of \
-                    [Billboard's Top 100 Year-End Hot singles]\
-                        (https://en.wikipedia.org/wiki/Billboard_Year-End_Hot_100_singles_of_2020) \
-                            clustered by the themes identified in the project.")
+st.markdown("DEMO for the CTE STEM Index'***")
+st.markdown("This app is meant as a demo explore the dataset created by the CTE STEM Index team"")
 #---------------------------------------------------------------#
 # SELECT ARTIST AND SETUP DATA
 #---------------------------------------------------------------#
 sorted_artists = stats_df.groupby('search_artist')['search_query'].count()\
     .sort_values(ascending=False).index
 
-st.markdown("### **Select Artist:**")
+st.markdown("### **Select Job Title:**")
 select_artist = []
 
 select_artist.append(st.selectbox('', sorted_artists))
