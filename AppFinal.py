@@ -39,21 +39,21 @@ color_dict = dict(zip(color_map_df['clusters'], color_map_df['colors']))
 
 col1, col2 = st.beta_columns(2)
     
-with col1:
-    st.markdown(f"**Total Songs:** {artist_df.shape[0]}")
-    st.markdown(f"**Top Song:** " +\
-                f"{artist_df.loc[artist_df['track_rank']==np.min(artist_df['track_rank']),'search_query'].values[0]}")
+#with col1:
+#    st.markdown(f"**Total Songs:** {artist_df.shape[0]}")
+#    st.markdown(f"**Top Song:** " +\
+#                f"{artist_df.loc[artist_df['track_rank']==np.min(artist_df['track_rank']),'search_query'].values[0]}")
     
-with col2:
-    st.markdown(f"**Highest Rank:** {np.min(artist_df['track_rank'])}")
-    st.markdown(f"**Major Cluster:** {major_cluster}")
+#with col2:
+#    st.markdown(f"**Highest Rank:** {np.min(artist_df['track_rank'])}")
+#    st.markdown(f"**Major Cluster:** {major_cluster}")
 
 st.text("")
 #---------------------------------------------------------------#
 # CREATE SUMMARY POSTER
 #---------------------------------------------------------------#
-fig = summary_poster(artist_df, color_dict)
-st.write(fig)
+#fig = summary_poster(artist_df, color_dict)
+#st.write(fig)
 
 #---------------------------------------------------------------#
 # PROJECT BRIEF
