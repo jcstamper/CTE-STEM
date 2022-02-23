@@ -4,7 +4,6 @@ import streamlit as st
 from Helper import load_data, summary_poster
 
 stats_df = load_data("./data/Occupations.csv")
-color_map_df = load_data("./data/color_map_df.csv")
 
 st.set_page_config(page_title="CTE STEM Index", 
                    layout='wide')
@@ -32,12 +31,9 @@ select_artist.append(st.selectbox('', sorted_artists))
 artist_df = stats_df[stats_df['occupation'].isin(select_artist)]
 
 major_cluster = artist_df.groupby('Science')['workValues.code'].count()\
-    .sort_values(ascending = False).index[0]
+    .sort_values(ascending = True).index[0]
 
-#Setting up color palette dict
-color_dict = dict(zip(color_map_df['clusters'], color_map_df['colors']))
-
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
     
 #with col1:
 #    st.markdown(f"**Total Songs:** {artist_df.shape[0]}")
@@ -52,7 +48,7 @@ st.text("")
 #---------------------------------------------------------------#
 # CREATE SUMMARY POSTER
 #---------------------------------------------------------------#
-fig = summary_poster(artist_df, color_dict)
+fig = summary_poster(artist_df)
 st.write(fig)
 
 #---------------------------------------------------------------#
