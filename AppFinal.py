@@ -3,7 +3,7 @@ from PIL import Image
 import streamlit as st
 from Helper import load_data, summary_poster
 
-stats_df = load_data("./data/df_wclusters.csv")
+stats_df = load_data("./data/Occupations.csv")
 color_map_df = load_data("./data/color_map_df.csv")
 
 st.set_page_config(page_title="CTE STEM Index", 
@@ -20,7 +20,7 @@ st.markdown("This app is meant as a demo explore the dataset created by the CTE 
 #---------------------------------------------------------------#
 # SELECT ARTIST AND SETUP DATA
 #---------------------------------------------------------------#
-sorted_artists = stats_df.groupby('search_artist')['search_query'].count()\
+sorted_artists = stats_df.groupby('occupation')['workValues.code'].count()\
     .sort_values(ascending=False).index
 
 st.markdown("### **Select Job Title:**")
@@ -29,9 +29,9 @@ select_artist = []
 select_artist.append(st.selectbox('', sorted_artists))
 
 #Filter df based on selection
-artist_df = stats_df[stats_df['search_artist'].isin(select_artist)]
+artist_df = stats_df[stats_df['occupation'].isin(select_artist)]
 
-major_cluster = artist_df.groupby('clusters')['search_query'].count()\
+major_cluster = artist_df.groupby('Science')['workValues.code'].count()\
     .sort_values(ascending = False).index[0]
 
 #Setting up color palette dict

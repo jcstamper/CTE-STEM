@@ -7,7 +7,7 @@ def load_data(filename):
     df = pd.read_csv(filename, index_col=0)
     return df
 
-def summary_poster(artist_df, color_dict):
+def summary_poster(occupation_df, color_dict):
     #MAKE SUBPLOTS
     fig = make_subplots(
         rows=2, cols=2, 
@@ -20,39 +20,48 @@ def summary_poster(artist_df, color_dict):
             vertical_spacing=0.1, horizontal_spacing= 0.09)
     #PIE
     #data for pie
-    pie_data = artist_df.groupby('clusters')['search_query'].count()
-
-    fig.add_trace(go.Pie(labels = pie_data.index,
-                            values = pie_data.values,
-                            hole = 0.4,
+    colors = ['royalblue', 'darkorange', 'grey', 'gold']
+    stem = []
+    stem.append(occupation_df['Science'].values[0]) 
+    stem.append(occupation_df['Technology'].values[0]) 
+    stem.append(occupation_df['Engineering'].values[0]) 
+    stem.append(occupation_df['Mathematics'].values[0]) 
+    pie_data = pd.DataFrame(columns=['clusters'])
+    #pie_data.loc['Science'] = [job_df['science']]
+    #pie_data.loc['Technology'] = [job_df['technolgy']]
+    #fig.add_trace(go.Pie(labels = pie_data.index,
+    #                        values = pie_data.values,
+    fig.add_trace(go.Pie(labels = ['Science', 'Technology', 'Engineering', 'Mathematics'],
+                            values = stem,
+                            hole = 0.7,
                             legendgroup = 'grp1',
                             showlegend=False),
-                row = 1, col = 1)
+                            row = 1, col = 1)
     fig.update_traces(hoverinfo = 'label+percent',
-                        textinfo = 'value+percent',
+                        textinfo = 'label+value',
                         textfont_color = 'white',
-                        marker = dict(colors = pie_data.index.map(color_dict),
+                        marker = dict(colors = colors,
                                     line=dict(color='white', width=1)),
                         row = 1, col = 1)
 
     #STACKED BAR
-    pivot_artist_df = artist_df.groupby(['year','clusters'])['search_query'].count()
-    pivot_artist_df = pivot_artist_df.unstack()
-    pivot_artist_df.fillna(0, inplace = True)
+    pivot_occupation_df = occupation_df.groupby(['title','education.code'])['Science'].count()
+    pivot_occupation_df = pivot_occupation_df.unstack()
+    pivot_occupation_df.fillna(0, inplace = True)
 
     #plot params
-    labels = pivot_artist_df.columns    
+    labels = pivot_occupation_df.columns    
 
-    for i, label_name in enumerate(labels):
-        x = pivot_artist_df.iloc[:,i].index
-        fig.add_trace(go.Bar(x = x, 
-                                y = pivot_artist_df.iloc[:,i],
-                                name = label_name,
-                                hovertemplate='<b>Year: %{x}</b><br>Level: %{y}',
-                                marker_color = pd.Series([label_name]*len(x)).map(color_dict),
-                                legendgroup = 'grp2',
-                                showlegend=True),
-                                row = 1, col = 2)
+    
+    clusters = ['Science', 'Technology', 'Engineering', 'Mathematics']
+    values = stem
+    
+    #colors = [[#F63366], [#2BB1BB], [#22466B], '' ]
+    fig.add_trace(go.Bar(x = clusters, 
+                         y = values,
+                         marker=dict(color = colors),
+                         hoverinfo = 'x+y'),
+                         row = 1, col = 2)
     fig.update_yaxes(title_text = 'Level',linecolor = 'grey', mirror = True, 
                         title_standoff = 0, gridcolor = 'grey', gridwidth = 0.1,
                         zeroline = False,
@@ -62,11 +71,11 @@ def summary_poster(artist_df, color_dict):
 
     #SCATTER
     fig.add_trace(go.Scatter(
-                x=artist_df['year'],
-                y=artist_df['track_rank'],
+                x=occupation_df['title'],
+                y=occupation_df['education.code'],
                 mode = 'markers',
-                marker_color = artist_df['clusters'].map(color_dict),
-                customdata = artist_df.loc[:,['year','track_rank','search_query']],
+                #marker_color = occupation_df['clusters'].map(color_dict),
+                customdata = occupation_df.loc[:,['title','education.code','occupation']],
                 hovertemplate='<b>Year: %{customdata[0]}</b><br>Rank: %{customdata[1]} <br>Title: %{customdata[2]}',
                 legendgroup = 'grp1',
                 showlegend=False
