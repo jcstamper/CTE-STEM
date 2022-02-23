@@ -64,7 +64,7 @@ def summary_poster(occupation_df, color_dict):
                          row = 1, col = 2)
     fig.update_yaxes(title_text = 'Level',linecolor = 'grey', mirror = True, 
                         title_standoff = 0, gridcolor = 'grey', gridwidth = 0.1,
-                        zeroline = False,
+                        zeroline = False, range = [0,8],
                         row = 1, col = 2)
     fig.update_xaxes(linecolor = 'grey', mirror = True, dtick = 5,
                      row = 1, col = 2)
