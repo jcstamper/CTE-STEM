@@ -33,7 +33,7 @@ artist_df = stats_df[stats_df['occupation'].isin(select_artist)]
 major_cluster = artist_df.groupby('Science')['workValues.code'].count()\
     .sort_values(ascending = True).index[0]
 
-col1, col2 = st.columns(2)
+col1, col2 = st.beta_columns(2)
     
 #with col1:
 #    st.markdown(f"**Total Songs:** {artist_df.shape[0]}")
